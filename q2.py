@@ -4,32 +4,32 @@ Questão 2: implemente uma função que, dado uma matriz A e uma submatriz B
 pode ser encontrada na matriz A.
 """
 
-def get_matches_count(search: list, haystack: list) -> int:
+def get_matches_count(needle: list, haystack: list) -> int:
     """
-    Retorna o numero de ocorrências da matriz 'search' na matriz 'haystack'
+    Retorna o numero de ocorrências da matriz 'needle' na matriz 'haystack'
     
     Parameters:
-        search (list): A matriz que será buscada dentro de outra;
+        needle (list): A matriz que será buscada dentro de outra;
         haystack (list): A matriz onde a busca será performada
     """
-    if not len(search) or not len(haystack):
+    if not len(needle) or not len(haystack):
         raise ValueError("Matrix size can't be 0")
 
-    if type(search[0]) is not list or type(haystack[0]) is not list:
+    if type(needle[0]) is not list or type(haystack[0]) is not list:
         raise ValueError("Matrix must have 2 dimensions")
 
 
-    # Evita olhar linhas desnecessárias, que são menores que as dimensões da matriz 'search'
-    max_row = len(haystack) - len(search) + 1
-    max_col = len(haystack[0]) - len(search[0]) + 1
+    # Evita olhar linhas desnecessárias, que são menores que as dimensões da matriz 'needle'
+    max_row = len(haystack) - len(needle) + 1
+    max_col = len(haystack[0]) - len(needle[0]) + 1
     count = 0
     for i in range(max_row):
         for j in range(max_col):
-            if haystack[i][j] == search[0][0]:
+            if haystack[i][j] == needle[0][0]:
                 is_match = True
-                for m in range(len(search)):
-                    for n in range(len(search[0])):
-                        if search[m][n] != haystack[i+m][j+n]:
+                for m in range(len(needle)):
+                    for n in range(len(needle[0])):
+                        if needle[m][n] != haystack[i+m][j+n]:
                             is_match = False
                             break
                 if is_match:
@@ -51,7 +51,7 @@ matrix_b = [list(range(1, 3)) for i in range(5)]
 
 print("Matriz 'haystack'")
 print_matrix(matrix_a)
-print("Matriz 'search'")
+print("Matriz 'needle'")
 print_matrix(matrix_b)
 
 matches = get_matches_count(matrix_b, matrix_a)
